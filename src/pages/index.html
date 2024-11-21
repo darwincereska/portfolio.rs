@@ -1,0 +1,254 @@
+<!-- Keep all comments -->
+ <!-- Make sure to use htmx and tailwind -->
+<!-- I want a tech portfolio themed page with a dark colorscheme a nice font with that line backgrount that glows around your mouse make it only glow on the background, and add horizontal and vertical lines to the background and only make the glow affect those -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- HTMX for dynamic content loading -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <!-- Tailwind for styling -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Custom Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500;700&display=swap" defer rel="stylesheet">
+    <style>
+        /* Base body styles */
+        body {
+            font-family: 'Product Sans', sans-serif;
+            background-color: black;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Grid background with lines */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(30, 30, 30, 0.3) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 30, 30, 0.3) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+        }
+
+        /* Mouse follow glow effect */
+        .glow-effect {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 0, 255, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            mix-blend-mode: screen;
+        }
+
+        /* Content and nav z-index positioning */
+        #content, nav {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Active navigation button style */
+        .active-nav {
+            background-color: rgba(255, 0, 255, 0.2);
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation button base styles */
+        nav button {
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+        }
+
+        /* Content area with fixed height */
+        #content {
+            height: 500px;
+            transition: all 0.3s ease-in-out;
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 640px) {
+            .mobile-nav {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(24, 24, 27, 0.98);
+                z-index: 100;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+
+            .mobile-nav.show {
+                opacity: 1;
+                pointer-events: auto;
+                display: flex;
+            }
+
+            nav {
+                position: relative;
+                width: 90%;
+            }
+            
+            nav button {
+                width: 100%;
+                margin: 0.5rem 0 !important;
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            #content {
+                height: 70vh;
+                margin-top: 1rem !important;
+                padding: 1rem !important;
+            }
+
+            .github-pill {
+                display: none !important;
+            }
+
+            #content.menu-open {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-100">
+   <div class="grid-background z-0"></div>
+   <div class="glow-effect z-1"></div>
+   <!-- GitHub Username Pill -->
+   <div class="fixed top-8 left-4 z-10 sm:block">
+       <a href="https://github.com/darwincereska" target="_blank" class="github-pill bg-zinc-900 text-gray-300 hover:text-[#FF00FF] px-8 py-3 rounded-lg border border-zinc-800 transition-colors duration-300 inline-block">
+           @darwincereska
+       </a>
+   </div>
+   <!-- Navigation Section -->
+   <div class="flex justify-center pt-8">
+       <nav class="bg-zinc-900 rounded-lg px-8 py-3 inline-flex sm:space-x-6 shadow-lg border border-zinc-800">
+           <button class="sm:hidden text-gray-300 hover:text-[#FF00FF] transition-colors duration-300" onclick="toggleMobileMenu()">
+               ☰
+           </button>
+           <div class="mobile-nav sm:flex sm:space-x-6">
+               <button class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300 active-nav"
+                       hx-get="/home"
+                       hx-target="#content"
+                       hx-trigger="click"
+                       data-page-title="Home"
+                       onclick="handleMobileNavClick()"
+                       hx-swap="innerHTML transition:true">
+                   Home
+               </button>
+               <button class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300"
+                       hx-get="pages/about.html"
+                       hx-target="#content"
+                       hx-trigger="click"
+                       data-page-title="About"
+                       onclick="handleMobileNavClick()"
+                       hx-swap="innerHTML transition:true">
+                   About
+               </button>
+               <button class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300"
+                       hx-get="/404"
+                       hx-target="#content"
+                       hx-trigger="click"
+                       data-page-title="Contact"
+                       onclick="handleMobileNavClick()"
+                       hx-swap="innerHTML transition:true">
+                   Contact
+               </button>
+           </div>
+       </nav>
+   </div>
+   
+       <!-- Main Content Area -->
+       <main class="container mx-auto px-4 sm:p-4">
+           <div id="content" class="mt-8 p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-800" hx-get="/home" hx-trigger="load">
+               <!-- Content will be loaded here -->
+           </div>
+       </main>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        // Mouse movement tracking for glow effect
+        document.addEventListener('mousemove', (e) => {
+            const glowEffect = document.querySelector('.glow-effect');
+            glowEffect.style.left = e.clientX + 'px';
+            glowEffect.style.top = e.clientY + 'px';
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.querySelector('.mobile-nav');
+            const content = document.querySelector('#content');
+            mobileNav.classList.toggle('show');
+            content.classList.toggle('menu-open');
+        }
+
+        // Handle mobile navigation click
+        function handleMobileNavClick() {
+            if (window.innerWidth <= 640) {
+                const mobileNav = document.querySelector('.mobile-nav');
+                const content = document.querySelector('#content');
+                mobileNav.classList.remove('show');
+                content.classList.remove('menu-open');
+            }
+        }
+
+        // HTMX after-load handler for navigation active states
+        htmx.on("htmx:afterOnLoad", function(evt) {
+            const targetButton = evt.detail.requestConfig.elt;
+            if (targetButton && targetButton.tagName === 'BUTTON') {
+                document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-nav'));
+                targetButton.classList.add('active-nav');
+                // Update page title
+                document.title = targetButton.getAttribute('data-page-title');
+            }
+        });
+
+        // Set home button as active on initial page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeButton = document.querySelector('[data-page-title="Home"]');
+            homeButton.classList.add('active-nav');
+            document.title = 'Home';
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const content = document.querySelector('#content');
+            if (!nav.contains(event.target) && mobileNav.classList.contains('show')) {
+                mobileNav.classList.remove('show');
+                content.classList.remove('menu-open');
+            }
+        });
+    </script>
+</body>
+</html>

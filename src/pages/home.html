@@ -1,0 +1,96 @@
+<!-- READ ALL COMMENTS AND KEEP THEM dont remove any comments -->
+<!-- USE TAILWIND and htmx -->
+<div class="flex flex-col items-center px-4 sm:px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-8 text-center">
+        Hi I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF00FF] to-purple-600">Darwin</span>.
+    </h1>
+    <p class="text-gray-300 max-w-2xl text-center text-base sm:text-lg leading-relaxed mb-8 sm:mb-16">
+        Welcome to my portfolio. I'm passionate about technology and creating innovative solutions. Through my work, I strive to make a meaningful impact in the digital world.
+    </p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full max-w-6xl">
+        <!-- Project Card Component with HTMX -->
+        <a href="https://github.com/yourusername/project1" target="_blank" class="block h-full">
+            <div class="bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700 hover:border-[#FF00FF] transition-colors duration-300 group h-full flex flex-col">
+                <div class="w-full h-48 bg-zinc-700 relative flex-shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center animate-pulse" id="loader1">
+                        <div class="w-8 h-8 border-4 border-[#FF00FF] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <img src="https://picsum.photos/seed/1/400/250" class="w-full h-full object-cover"
+                         alt="Project 1 thumbnail" onload="this.parentElement.querySelector('#loader1').style.display='none'">
+                </div>
+                <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-100 mb-2">Project Name</h3>
+                    <p class="text-sm sm:text-base text-gray-400 mb-4 overflow-y-auto max-h-24">A brief description of the project and the technologies used in its development.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">React</span>
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">Node.js</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://github.com/yourusername/project2" target="_blank" class="block h-full">
+            <div class="bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700 hover:border-[#FF00FF] transition-colors duration-300 group h-full flex flex-col">
+                <div class="w-full h-48 bg-zinc-700 relative flex-shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center animate-pulse" id="loader2">
+                        <div class="w-8 h-8 border-4 border-[#FF00FF] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <img src="https://picsum.photos/seed/2/400/250" class="w-full h-full object-cover"
+                         alt="Project 2 thumbnail" onload="this.parentElement.querySelector('#loader2').style.display='none'">
+                </div>
+                <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-100 mb-2">Another Project</h3>
+                    <p class="text-sm sm:text-base text-gray-400 mb-4 overflow-y-auto max-h-24">Description of another amazing project showcasing different skills and technologies.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">Python</span>
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">Django</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://github.com/yourusername/project3" target="_blank" class="block h-full">
+            <div class="bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700 hover:border-[#FF00FF] transition-colors duration-300 group h-full flex flex-col">
+                <div class="w-full h-48 bg-zinc-700 relative flex-shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center animate-pulse" id="loader3">
+                        <div class="w-8 h-8 border-4 border-[#FF00FF] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <img src="https://picsum.photos/seed/3/400/250" class="w-full h-full object-cover"
+                         alt="Project 3 thumbnail" onload="this.parentElement.querySelector('#loader3').style.display='none'">
+                </div>
+                <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-100 mb-2">Cool Project</h3>
+                    <p class="text-sm sm:text-base text-gray-400 mb-4 overflow-y-auto max-h-24">An innovative solution that demonstrates problem-solving and technical expertise.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">Vue.js</span>
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://github.com/yourusername/project4" target="_blank" class="block h-full">
+            <div class="bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700 hover:border-[#FF00FF] transition-colors duration-300 group h-full flex flex-col">
+                <div class="w-full h-48 bg-zinc-700 relative flex-shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center animate-pulse" id="loader4">
+                        <div class="w-8 h-8 border-4 border-[#FF00FF] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <img src="https://picsum.photos/seed/4/400/250" class="w-full h-full object-cover"
+                         alt="Project 4 thumbnail" onload="this.parentElement.querySelector('#loader4').style.display='none'">
+                </div>
+                <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-100 mb-2">Innovative Project</h3>
+                    <p class="text-sm sm:text-base text-gray-400 mb-4 overflow-y-auto max-h-24">A cutting-edge project that pushes the boundaries of modern web development.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">TypeScript</span>
+                        <span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">Next.js</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Container for HTMX-loaded project details -->
+    <div id="project-details" class="mt-8"></div>
+</div>
