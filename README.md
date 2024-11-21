@@ -47,7 +47,7 @@ The website will be available at `http://localhost:8000`
 ## Project Structure
 
 
-portfolio-rs/
+```portfolio-rs/
 ├── Cargo.lock
 ├── src
 │   ├── pages
@@ -64,7 +64,7 @@ portfolio-rs/
 ├── Cargo.toml
 └── Rocket.toml
 
-
+```
 
 ## Configuration
 
