@@ -8,9 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <!-- HTMX for dynamic content loading -->
-    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <!-- <script src="https://unpkg.com/htmx.org@2.0.3"></script> -->
+     
+    <script src="/public/htmx.min.js"></script>
+    
     <!-- Tailwind for styling -->
-    <link href="/public/tailwind.css" defer rel="stylesheet">
+
+    <!-- <link href="/public/tailwind.css" defer rel="stylesheet">
+      -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
     <!-- Custom Google Font -->
@@ -140,40 +147,14 @@
            <button class="sm:hidden text-gray-300 hover:text-[#FF00FF] transition-colors duration-300" onclick="toggleMobileMenu()">
                ☰
            </button>
-           <div class="mobile-nav sm:flex sm:space-x-6">
-               <button class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300 active-nav"
-                       hx-get="/home"
-                       hx-target="#content"
-                       hx-trigger="click"
-                       data-page-title="Home"
-                       onclick="handleMobileNavClick()"
-                       hx-swap="innerHTML transition:true">
-                   Home
-               </button>
-               <button class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300"
-                       hx-get="pages/about.html"
-                       hx-target="#content"
-                       hx-trigger="click"
-                       data-page-title="About"
-                       onclick="handleMobileNavClick()"
-                       hx-swap="innerHTML transition:true">
-                   About
-               </button>
-               <button class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300"
-                       hx-get="/404"
-                       hx-target="#content"
-                       hx-trigger="click"
-                       data-page-title="Contact"
-                       onclick="handleMobileNavClick()"
-                       hx-swap="innerHTML transition:true">
-                   Contact
-               </button>
+           <div class="mobile-nav sm:flex sm:space-x-6" id="nav-container">
+               <!-- Navigation buttons will be generated here -->
            </div>
        </nav>
    </div>
    <!-- Main Content Area -->
    <main class="container mx-auto px-4 sm:p-4">
-       <div id="content" class="mt-8 p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-800" hx-get="/home" hx-trigger="load">
+       <div id="content" class="mt-8 p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-800">
            <!-- Content will be loaded here -->
        </div>
    </main>
@@ -184,20 +165,61 @@
             glowEffect.style.left = e.clientX + 'px';
             glowEffect.style.top = e.clientY + 'px';
         });
+
+        function createNavButtons(navItems) {
+            const navContainer = document.getElementById('nav-container');
+            navItems.forEach((item, index) => {
+                const button = document.createElement('button');
+                button.className = `text-gray-300 hover:text-[#FF00FF] transition-colors duration-300 ${index === 0 ? 'active-nav' : ''}`;
+                button.setAttribute('hx-get', item.url);
+                button.setAttribute('hx-target', '#content');
+                button.setAttribute('hx-trigger', 'click');
+                button.setAttribute('data-page-title', item.title);
+                button.setAttribute('onclick', 'handleMobileNavClick(this)');
+                button.setAttribute('hx-swap', 'innerHTML');
+                button.textContent = item.text;
+                navContainer.appendChild(button);
+            });
+
+            // Trigger initial content load
+            if (navItems.length > 0) {
+                htmx.ajax('GET', navItems[0].url, {target: '#content'});
+            }
+        }
+
+        // Example usage on page load
+        // CREATE NAV BUTTONS
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = [
+                { url: '/home', title: 'Home', text: 'Home' },
+                { url: '/about', title: 'About', text: 'About' },
+                { url: '/home', title: 'Contact', text: 'Contact' },
+                
+            ];
+            createNavButtons(navItems);
+        });
+
         function toggleMobileMenu() {
             const mobileNav = document.querySelector('.mobile-nav');
             const content = document.querySelector('#content');
             mobileNav.classList.toggle('show');
             content.classList.toggle('menu-open');
         }
-        function handleMobileNavClick() {
+
+        function handleMobileNavClick(button) {
             if (window.innerWidth <= 640) {
                 const mobileNav = document.querySelector('.mobile-nav');
                 const content = document.querySelector('#content');
                 mobileNav.classList.remove('show');
                 content.classList.remove('menu-open');
             }
+            
+            // Update active state
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-nav'));
+            button.classList.add('active-nav');
+            document.title = button.getAttribute('data-page-title');
         }
+
         htmx.on("htmx:afterOnLoad", function(evt) {
             const targetButton = evt.detail.requestConfig.elt;
             if (targetButton && targetButton.tagName === 'BUTTON') {
@@ -206,11 +228,7 @@
                 document.title = targetButton.getAttribute('data-page-title');
             }
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            const homeButton = document.querySelector('[data-page-title="Home"]');
-            homeButton.classList.add('active-nav');
-            document.title = 'Home';
-        });
+
         document.addEventListener('click', function(event) {
             const nav = document.querySelector('nav');
             const mobileNav = document.querySelector('.mobile-nav');
@@ -219,6 +237,15 @@
                 mobileNav.classList.remove('show');
                 content.classList.remove('menu-open');
             }
+
+            // Load content based on button target
+            const button = event.target.closest('button');
+            if (button && button.hasAttribute('hx-get')) {
+                const contentDiv = document.querySelector('#content');
+                handleMobileNavClick(button);
+                htmx.ajax('GET', button.getAttribute('hx-get'), contentDiv);
+            }
+
         });
     </script>
 </body>

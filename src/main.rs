@@ -13,6 +13,14 @@ async fn index() -> Option<NamedFile> {
     NamedFile::open(file).await.ok()
 }
 
+
+#[get("/about")]
+async fn about() -> Option<NamedFile> {
+    let file: &str = "src/pages/about.html";
+    NamedFile::open(file).await.ok()
+}
+
+
 #[get("/404")]
 async fn four_o_four() -> Option<NamedFile> {
     let file: &str = "src/pages/404.html";
@@ -29,6 +37,6 @@ async fn not_found() -> Option<NamedFile> {
 fn rocket() -> _ {
     rocket::build()
         .register("/", catchers![not_found])
-        .mount("/", routes![index, four_o_four, home])
+        .mount("/", routes![index, four_o_four, home,about])
         .mount("/public", FileServer::from("src/static"))
 }

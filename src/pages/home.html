@@ -5,10 +5,12 @@
         Hi I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF00FF] to-purple-600">Darwin</span>.
     </h1>
     <p class="text-gray-300 max-w-2xl text-center text-base sm:text-lg leading-relaxed mb-8 sm:mb-16">
-        Welcome to my portfolio. I'm passionate about technology and creating innovative solutions. Through my work, I strive to make a meaningful impact in the digital world.
+        Hey, Im Darwin Cereska, I am a 16 year old web developer from Michigan. I have been coding for 8 years and have been working on a lot of different projects. I am currently working on a lot of different mini projects, and expanding my knowledge, and I am always looking for new projects to work on.
     </p>
     
     <div id="projects-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full max-w-6xl">
+        <!-- Projects Section Header -->
+        
         <!-- Projects will be loaded here -->
     </div>
 
@@ -24,6 +26,10 @@
             .then(response => response.json())
             .then(data => {
                 container.innerHTML = ''; // Clear container before adding new items
+                // Add the Projects header
+                
+                
+                
                 data.projects.forEach((project, index) => {
                     const card = document.createElement('a');
                     card.href = project.url;
