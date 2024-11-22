@@ -46,7 +46,8 @@
                             <div class="w-full h-48 bg-zinc-700 relative flex-shrink-0">
                                 ${loader}
                                 <img src="${project.image}" 
-                                     class="w-full h-full object-cover"
+                                     class="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-300"
+                                     loading="lazy"
                                      alt="${project.title} thumbnail" 
                                      onload="this.parentElement.querySelector('#loader${index}').style.display='none'">
                             </div>
