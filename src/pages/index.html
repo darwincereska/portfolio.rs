@@ -8,12 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <!-- HTMX for dynamic content loading -->
-    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
     <!-- Tailwind for styling -->
+
+    <script src="https://unpkg.com/htmx.org/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/mustache.js@latest"></script>
+
+
     <link href="/public/tailwind.css" defer rel="stylesheet">
     
     <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
     
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500;700&display=swap" defer rel="stylesheet">
@@ -251,5 +256,81 @@
             }
         });
     </script>
+
+<script>
+const projectsData = {
+    projects: [
+        {
+            id: 1,
+            url: "https://github.com/yourusername/project1",
+            image: "https://picsum.photos/seed/1/400/250",
+            title: "Project Name",
+            description: "A brief description of the project and the technologies used in its development.",
+            technologies: ["React", "Node.js"]
+        },
+        {
+            id: 2,
+            url: "https://github.com/yourusername/project2",
+            image: "https://picsum.photos/seed/2/400/250",
+            title: "Another Project",
+            description: "Description of another amazing project showcasing different skills and technologies.",
+            technologies: ["Python", "Django"]
+        },
+        {
+            id: 3,
+            url: "https://github.com/yourusername/project3",
+            image: "https://picsum.photos/seed/3/400/250",
+            title: "Cool Project",
+            description: "An innovative solution that demonstrates problem-solving and technical expertise.",
+            technologies: ["Vue.js", "Firebase"]
+        },
+        {
+            id: 4,
+            url: "https://github.com/yourusername/project4",
+            image: "https://picsum.photos/seed/4/400/250",
+            title: "Innovative Project",
+            description: "A cutting-edge project that pushes the boundaries of modern web development.",
+            technologies: ["TypeScript", "Next.js"]
+        }
+    ]
+};
+
+async function createProjectCards() {
+    const container = document.getElementById('projects-container');
+    
+    projectsData.projects.forEach(project => {
+        const card = document.createElement('a');
+        card.href = project.url;
+        card.target = "_blank";
+        card.className = "block h-full";
+        
+        card.innerHTML = `
+            <div class="bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700 hover:border-[#FF00FF] transition-colors duration-300 group h-full flex flex-col">
+                <div class="w-full h-48 bg-zinc-700 relative flex-shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center animate-pulse" id="loader${project.id}">
+                        <div class="w-8 h-8 border-4 border-[#FF00FF] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <img src="${project.image}" class="w-full h-full object-cover"
+                         alt="${project.title} thumbnail" onload="this.parentElement.querySelector('#loader${project.id}').style.display='none'">
+                </div>
+                <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-100 mb-2">${project.title}</h3>
+                    <p class="text-sm sm:text-base text-gray-400 mb-4 overflow-y-auto max-h-24">${project.description}</p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        ${project.technologies.map(tech => 
+                            `<span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">${tech}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        container.appendChild(card);
+    });
+}
+
+// Call the function when the document is loaded
+document.addEventListener('DOMContentLoaded', createProjectCards);
+</script>
 </body>
 </html>
