@@ -1,10 +1,11 @@
 #[macro_use] extern crate rocket;
+
 use rocket::{
     fairing::AdHoc, fs::{FileServer, NamedFile}, http::Header, response::Response
 };
 use rocket::form::Form;
 use serde_json::json;
-
+use reqwest::Client;
 #[rocket::async_trait]
 pub trait Compression {
     fn compress(&self) -> Response<'static>;
@@ -34,10 +35,6 @@ async fn about() -> Option<NamedFile> {
     let file: &str = "src/pages/about.html";
     NamedFile::open(file).await.ok()
 }
-
-
-
-use reqwest::Client;
 
 #[derive(FromForm)]
 struct ContactForm {
