@@ -47,24 +47,28 @@ The website will be available at `http://localhost:8000`
 ## Project Structure
 
 
-```portfolio-rs/
+```├── .env
+├── .gitignore
 ├── Cargo.lock
-├── src
-│   ├── pages
-│   │   ├── home.html
-│   │   ├── 404.html
-│   │   └── index.html
-│   ├── static
-│   │   ├── favicon.ico
-│   │   └── 404
-│   │       ├── script.js
-│   │       └── styles.css
-│   └── main.rs
-├── README.md
 ├── Cargo.toml
-└── Rocket.toml
-
-```
+├── README.md
+├── Rocket.toml
+├── src
+│   ├── main.rs
+│   ├── pages
+│   │   ├── 404.html
+│   │   ├── about.html
+│   │   ├── home.html
+│   │   └── index.html
+│   └── static
+│       ├── 404
+│       │   ├── script.js
+│       │   └── styles.css
+│       ├── favicon.ico
+│       ├── htmx.min.js
+│       ├── projects.json
+│       └── tailwind.css
+└── tailwind.config.js```
 
 ## Configuration
 
