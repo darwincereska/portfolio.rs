@@ -1,36 +1,23 @@
-<!-- Keep all comments -->
- <!-- Make sure to use htmx and tailwind -->
-<!-- I want a tech portfolio themed page with a dark colorscheme a nice font with that line backgrount that glows around your mouse make it only glow on the background, and add horizontal and vertical lines to the background and only make the glow affect those -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <!-- HTMX for dynamic content loading -->
-    <!-- <script src="https://unpkg.com/htmx.org@2.0.3"></script> -->
-     
     <script src="/public/htmx.min.js"></script>
-    
-    <!-- Tailwind for styling -->
+    <link rel="stylesheet" href="/public/tailwind.css">
 
-    <!-- <link href="/public/tailwind.css" defer rel="stylesheet">
-      -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
-    <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500;700&display=swap" defer rel="stylesheet">
     <style>
-        /* Base body styles */
         body {
             font-family: 'Product Sans', sans-serif;
             background-color: black;
             position: relative;
             overflow: hidden;
         }
-        /* Grid background with lines */
         .grid-background {
             position: fixed;
             top: 0;
@@ -43,7 +30,6 @@
             background-size: 50px 50px;
             z-index: -2;
         }
-        /* Mouse follow glow effect */
         .glow-effect {
             position: fixed;
             width: 300px;
@@ -54,35 +40,29 @@
             z-index: -1;
             mix-blend-mode: screen;
         }
-        /* Content and nav z-index positioning */
         #content, nav {
             position: relative;
             z-index: 1;
         }
-        /* Active navigation button style */
         .active-nav {
             background-color: rgba(255, 0, 255, 0.2);
             border-radius: 9999px;
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
         }
-        /* Navigation button base styles */
         nav button {
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 9999px;
         }
-        /* Content area with fixed height */
         #content {
             height: 500px;
             transition: all 0.3s ease-in-out;
             overflow-y: auto;
             box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
         }
-        /* Mobile responsive styles */
         @media (max-width: 640px) {
             .mobile-nav {
-                display: none;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -103,7 +83,6 @@
             .mobile-nav.show {
                 opacity: 1;
                 pointer-events: auto;
-                display: flex;
             }
             nav {
                 position: relative;
@@ -133,32 +112,24 @@
     </style>
 </head>
 <body class="bg-black text-gray-100">
-   <div class="grid-background z-0"></div>
-   <div class="glow-effect z-1"></div>
-   <!-- GitHub Username Pill -->
-   <div class="fixed top-8 left-4 z-10 sm:block">
-       <a href="https://github.com/darwincereska" target="_blank" class="github-pill bg-zinc-900 text-gray-300 hover:text-[#FF00FF] px-8 py-3 rounded-lg border border-zinc-800 transition-colors duration-300 inline-block">
-           @darwincereska
-       </a>
-   </div>
-   <!-- Navigation Section -->
-   <div class="flex justify-center pt-8">
-       <nav class="bg-zinc-900 rounded-lg px-8 py-3 inline-flex sm:space-x-6 shadow-lg border border-zinc-800">
-           <button class="sm:hidden text-gray-300 hover:text-[#FF00FF] transition-colors duration-300" onclick="toggleMobileMenu()">
-               ☰
-           </button>
-           <div class="mobile-nav sm:flex sm:space-x-6" id="nav-container">
-               <!-- Navigation buttons will be generated here -->
-           </div>
-       </nav>
-   </div>
-   <!-- Main Content Area -->
-   <main class="container mx-auto px-4 sm:p-4">
-       <div id="content" class="mt-8 p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-800">
-           <!-- Content will be loaded here -->
-       </div>
-   </main>
-    <!-- JavaScript for interactivity -->
+    <div class="grid-background z-0"></div>
+    <div class="glow-effect z-1"></div>
+    <div class="fixed top-8 left-4 z-10 sm:block">
+        <a href="https://github.com/darwincereska" target="_blank" class="github-pill bg-zinc-900 text-gray-300 hover:text-[#FF00FF] px-8 py-3 rounded-lg border border-zinc-800 transition-colors duration-300 inline-block">
+            @darwincereska
+        </a>
+    </div>
+    <div class="flex justify-center pt-8">
+        <nav class="bg-zinc-900 rounded-lg px-8 py-3 inline-flex sm:space-x-6 shadow-lg border border-zinc-800">
+            <button class="sm:hidden text-gray-300 hover:text-[#FF00FF] transition-colors duration-300" onclick="toggleMobileMenu()">
+                ☰
+            </button>
+            <div class="mobile-nav sm:flex sm:space-x-6" id="nav-container"></div>
+        </nav>
+    </div>
+    <main class="container mx-auto px-4 sm:p-4">
+        <div id="content" class="mt-8 p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-800"></div>
+    </main>
     <script>
         document.addEventListener('mousemove', (e) => {
             const glowEffect = document.querySelector('.glow-effect');
@@ -181,20 +152,16 @@
                 navContainer.appendChild(button);
             });
 
-            // Trigger initial content load
             if (navItems.length > 0) {
                 htmx.ajax('GET', navItems[0].url, {target: '#content'});
             }
         }
 
-        // Example usage on page load
-        // CREATE NAV BUTTONS
         document.addEventListener('DOMContentLoaded', () => {
             const navItems = [
                 { url: '/home', title: 'Home', text: 'Home' },
                 { url: '/about', title: 'About', text: 'About' },
-                { url: '/home', title: 'Contact', text: 'Contact' },
-                
+                { url: '/home', title: 'Contact', text: 'Contact' }
             ];
             createNavButtons(navItems);
         });
@@ -214,7 +181,6 @@
                 content.classList.remove('menu-open');
             }
             
-            // Update active state
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-nav'));
             button.classList.add('active-nav');
             document.title = button.getAttribute('data-page-title');
@@ -238,14 +204,12 @@
                 content.classList.remove('menu-open');
             }
 
-            // Load content based on button target
             const button = event.target.closest('button');
             if (button && button.hasAttribute('hx-get')) {
                 const contentDiv = document.querySelector('#content');
                 handleMobileNavClick(button);
                 htmx.ajax('GET', button.getAttribute('hx-get'), contentDiv);
             }
-
         });
     </script>
 </body>
