@@ -2,46 +2,11 @@
 {
   "projects": [
     {
-      "title": "E-Commerce Platform",
-      "description": "A full-stack e-commerce solution built with modern technologies. Features include real-time inventory management, secure payment processing, and responsive design.",
-      "image": "https://picsum.photos/800/600?random=1",
-      "url": "https://github.com/example/ecommerce",
-      "tags": ["React", "Node.js", "MongoDB", "AWS"]
-    },
-    {
-      "title": "AI Image Generator",
-      "description": "An artificial intelligence powered image generation tool that creates unique artwork based on text descriptions using deep learning models.",
-      "image": "https://picsum.photos/800/600?random=2",
-      "url": "https://github.com/example/ai-generator",
-      "tags": ["Python", "TensorFlow", "Docker", "REST API"]
-    },
-    {
-      "title": "Smart Home Dashboard",
-      "description": "A centralized IoT dashboard for monitoring and controlling smart home devices. Includes real-time data visualization and automated scheduling.",
-      "image": "https://picsum.photos/800/600?random=3",
-      "url": "https://github.com/example/smart-home",
-      "tags": ["Vue.js", "Firebase", "IoT", "WebSockets"]
-    },
-    {
-      "title": "Blockchain Wallet",
-      "description": "A secure cryptocurrency wallet supporting multiple chains with built-in DEX integration and real-time market data tracking.",
-      "image": "https://picsum.photos/800/600?random=4",
-      "url": "https://github.com/example/crypto-wallet",
-      "tags": ["Solidity", "Web3.js", "React Native", "Blockchain"]
-    },
-    {
-      "title": "Social Media Analytics",
-      "description": "Advanced analytics platform for social media marketing with sentiment analysis and engagement tracking capabilities.",
-      "image": "https://picsum.photos/800/600?random=5",
-      "url": "https://github.com/example/social-analytics",
-      "tags": ["Django", "PostgreSQL", "Machine Learning", "D3.js"]
-    },
-    {
-      "title": "Cloud File Manager",
-      "description": "Secure cloud storage solution with file versioning, sharing capabilities, and end-to-end encryption for sensitive data.",
-      "image": "https://picsum.photos/800/600?random=6",
-      "url": "https://github.com/example/cloud-storage",
-      "tags": ["Angular", "Go", "Redis", "Kubernetes"]
+      "title": "Moonlight Games",
+      "description": "The best open-source gaming website project that is taking the world by storm. Moonlight is a website that allows users to play games online with their friends. It is a great way to connect with people from all over the world and have fun.",
+      "image": "https://i.ytimg.com/vi/704NQv9POgo/maxresdefault.jpg",
+      "url": "https://github.com/silvereennetwork/Moonlight4.0",
+      "tags": ["HTML", "Node.js", "AWS"]
     }
   ]
 }
