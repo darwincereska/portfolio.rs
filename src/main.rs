@@ -1,10 +1,5 @@
 #[macro_use] extern crate rocket;
-use rocket::{
-    fs::{FileServer,NamedFile},
-    http::{Status},
-    Request,
-
-};
+use rocket::fs::{FileServer,NamedFile};
 #[get("/home")]
 async fn home() -> Option<NamedFile> {
     let file: &str = "src/pages/home.html";
@@ -22,18 +17,14 @@ async fn index() -> Option<NamedFile> {
 async fn four_o_four() -> Option<NamedFile> {
     let file: &str = "src/pages/404.html";
     NamedFile::open(file).await.ok()
-
 }
-
-
-
 
 #[catch(404)]
 async fn not_found() -> Option<NamedFile> {
     let file: &str = "pages/404.html";
     NamedFile::open(file).await.ok()
-
 }
+
 #[launch]
 fn rocket() -> _ {
     rocket::build()

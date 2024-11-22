@@ -10,15 +10,9 @@
     <!-- HTMX for dynamic content loading -->
     <script src="https://unpkg.com/htmx.org@2.0.3"></script>
     <!-- Tailwind for styling -->
-
-
-
-
     <link href="/public/tailwind.css" defer rel="stylesheet">
-    
     <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
-    
+    <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500;700&display=swap" defer rel="stylesheet">
     <style>
@@ -29,7 +23,6 @@
             position: relative;
             overflow: hidden;
         }
-
         /* Grid background with lines */
         .grid-background {
             position: fixed;
@@ -43,7 +36,6 @@
             background-size: 50px 50px;
             z-index: -2;
         }
-
         /* Mouse follow glow effect */
         .glow-effect {
             position: fixed;
@@ -55,13 +47,11 @@
             z-index: -1;
             mix-blend-mode: screen;
         }
-
         /* Content and nav z-index positioning */
         #content, nav {
             position: relative;
             z-index: 1;
         }
-
         /* Active navigation button style */
         .active-nav {
             background-color: rgba(255, 0, 255, 0.2);
@@ -69,14 +59,12 @@
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
         }
-
         /* Navigation button base styles */
         nav button {
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 9999px;
         }
-
         /* Content area with fixed height */
         #content {
             height: 500px;
@@ -84,7 +72,6 @@
             overflow-y: auto;
             box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
         }
-
         /* Mobile responsive styles */
         @media (max-width: 640px) {
             .mobile-nav {
@@ -106,39 +93,32 @@
                 pointer-events: none;
                 transition: opacity 0.3s ease;
             }
-
             .mobile-nav.show {
                 opacity: 1;
                 pointer-events: auto;
                 display: flex;
             }
-
             nav {
                 position: relative;
                 width: 90%;
             }
-            
             nav button {
                 width: 100%;
                 margin: 0.5rem 0 !important;
                 text-align: center;
                 font-size: 1.5rem;
             }
-
             .container {
                 padding: 1rem;
             }
-
             #content {
                 height: 70vh;
                 margin-top: 1rem !important;
                 padding: 1rem !important;
             }
-
             .github-pill {
                 display: none !important;
             }
-
             #content.menu-open {
                 display: none;
             }
@@ -191,32 +171,25 @@
            </div>
        </nav>
    </div>
-   
-       <!-- Main Content Area -->
-       <main class="container mx-auto px-4 sm:p-4">
-           <div id="content" class="mt-8 p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-800" hx-get="/home" hx-trigger="load">
-               <!-- Content will be loaded here -->
-           </div>
-       </main>
-
+   <!-- Main Content Area -->
+   <main class="container mx-auto px-4 sm:p-4">
+       <div id="content" class="mt-8 p-8 bg-zinc-900 rounded-lg shadow-xl border border-zinc-800" hx-get="/home" hx-trigger="load">
+           <!-- Content will be loaded here -->
+       </div>
+   </main>
     <!-- JavaScript for interactivity -->
     <script>
-        // Mouse movement tracking for glow effect
         document.addEventListener('mousemove', (e) => {
             const glowEffect = document.querySelector('.glow-effect');
             glowEffect.style.left = e.clientX + 'px';
             glowEffect.style.top = e.clientY + 'px';
         });
-
-        // Mobile menu toggle
         function toggleMobileMenu() {
             const mobileNav = document.querySelector('.mobile-nav');
             const content = document.querySelector('#content');
             mobileNav.classList.toggle('show');
             content.classList.toggle('menu-open');
         }
-
-        // Handle mobile navigation click
         function handleMobileNavClick() {
             if (window.innerWidth <= 640) {
                 const mobileNav = document.querySelector('.mobile-nav');
@@ -225,26 +198,19 @@
                 content.classList.remove('menu-open');
             }
         }
-
-        // HTMX after-load handler for navigation active states
         htmx.on("htmx:afterOnLoad", function(evt) {
             const targetButton = evt.detail.requestConfig.elt;
             if (targetButton && targetButton.tagName === 'BUTTON') {
                 document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-nav'));
                 targetButton.classList.add('active-nav');
-                // Update page title
                 document.title = targetButton.getAttribute('data-page-title');
             }
         });
-
-        // Set home button as active on initial page load
         document.addEventListener('DOMContentLoaded', function() {
             const homeButton = document.querySelector('[data-page-title="Home"]');
             homeButton.classList.add('active-nav');
             document.title = 'Home';
         });
-
-        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             const nav = document.querySelector('nav');
             const mobileNav = document.querySelector('.mobile-nav');
@@ -255,81 +221,5 @@
             }
         });
     </script>
-
-<script>
-const projectsData = {
-    projects: [
-        {
-            id: 1,
-            url: "https://github.com/yourusername/project1",
-            image: "https://picsum.photos/seed/1/400/250",
-            title: "Project Name",
-            description: "A brief description of the project and the technologies used in its development.",
-            technologies: ["React", "Node.js"]
-        },
-        {
-            id: 2,
-            url: "https://github.com/yourusername/project2",
-            image: "https://picsum.photos/seed/2/400/250",
-            title: "Another Project",
-            description: "Description of another amazing project showcasing different skills and technologies.",
-            technologies: ["Python", "Django"]
-        },
-        {
-            id: 3,
-            url: "https://github.com/yourusername/project3",
-            image: "https://picsum.photos/seed/3/400/250",
-            title: "Cool Project",
-            description: "An innovative solution that demonstrates problem-solving and technical expertise.",
-            technologies: ["Vue.js", "Firebase"]
-        },
-        {
-            id: 4,
-            url: "https://github.com/yourusername/project4",
-            image: "https://picsum.photos/seed/4/400/250",
-            title: "Innovative Project",
-            description: "A cutting-edge project that pushes the boundaries of modern web development.",
-            technologies: ["TypeScript", "Next.js"]
-        }
-    ]
-};
-
-async function createProjectCards() {
-    const container = document.getElementById('projects-container');
-    
-    projectsData.projects.forEach(project => {
-        const card = document.createElement('a');
-        card.href = project.url;
-        card.target = "_blank";
-        card.className = "block h-full";
-        
-        card.innerHTML = `
-            <div class="bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700 hover:border-[#FF00FF] transition-colors duration-300 group h-full flex flex-col">
-                <div class="w-full h-48 bg-zinc-700 relative flex-shrink-0">
-                    <div class="absolute inset-0 flex items-center justify-center animate-pulse" id="loader${project.id}">
-                        <div class="w-8 h-8 border-4 border-[#FF00FF] border-t-transparent rounded-full animate-spin"></div>
-                    </div>
-                    <img src="${project.image}" class="w-full h-full object-cover"
-                         alt="${project.title} thumbnail" onload="this.parentElement.querySelector('#loader${project.id}').style.display='none'">
-                </div>
-                <div class="p-4 sm:p-6 flex flex-col flex-grow">
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-100 mb-2">${project.title}</h3>
-                    <p class="text-sm sm:text-base text-gray-400 mb-4 overflow-y-auto max-h-24">${project.description}</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        ${project.technologies.map(tech => 
-                            `<span class="px-3 py-1 bg-zinc-700 rounded-full text-xs sm:text-sm text-gray-300">${tech}</span>`
-                        ).join('')}
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        container.appendChild(card);
-    });
-}
-
-// Call the function when the document is loaded
-document.addEventListener('DOMContentLoaded', createProjectCards);
-</script>
 </body>
 </html>
