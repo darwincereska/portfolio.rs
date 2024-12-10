@@ -1,11 +1,16 @@
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 
 use rocket::{
-    fairing::AdHoc, fs::{FileServer, NamedFile}, http::Header, response::Response
+    fairing::AdHoc,
+    fs::{FileServer, NamedFile},
+    http::Header,
+    response::Response,
 };
+
+use reqwest::Client;
 use rocket::form::Form;
 use serde_json::json;
-use reqwest::Client;
 #[rocket::async_trait]
 pub trait Compression {
     fn compress(&self) -> Response<'static>;
@@ -22,7 +27,6 @@ async fn contact() -> Option<NamedFile> {
     let file: &str = "src/pages/contact.html";
     NamedFile::open(file).await.ok()
 }
-
 
 #[get("/")]
 async fn index() -> Option<NamedFile> {
@@ -46,9 +50,9 @@ struct ContactForm {
 #[post("/contact", data = "<form>")]
 async fn contact_form(form: Form<ContactForm>) -> &'static str {
     const WEBHOOK_URL: &str = "https://discord.com/api/webhooks/1309413812390199336/DmaOILGLgu8Z0RXGjhhwu5mYxFcl-L4jNtvFaINrrsogzWZjRRCQ2neAVyISu12JKgoD";
-    
+
     let client = Client::new();
-    
+
     let message = json!({
         "embeds": [{
             "title": "@everyone New Contact Form Submission",
@@ -72,15 +76,11 @@ async fn contact_form(form: Form<ContactForm>) -> &'static str {
         }]
     });
 
-    match client.post(WEBHOOK_URL)
-        .json(&message)
-        .send()
-        .await {
-            Ok(_) => "Message sent successfully!",
-            Err(_) => "Failed to send message."
-        }
+    match client.post(WEBHOOK_URL).json(&message).send().await {
+        Ok(_) => "Message sent successfully!",
+        Err(_) => "Failed to send message.",
+    }
 }
-
 
 #[get("/404")]
 async fn four_o_four() -> Option<NamedFile> {
